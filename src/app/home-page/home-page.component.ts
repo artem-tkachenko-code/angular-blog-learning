@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Post } from '../shared/interfaces';
+import { Post, Todo } from '../shared/interfaces';
 import { PostsService } from '../shared/posts.service';
+import { TodosService } from '../shared/todos.service';
 
 @Component({
   selector: 'app-home-page',
@@ -12,7 +13,9 @@ export class HomePageComponent implements OnInit {
 
   posts$!: Observable<Post[]>
 
-  constructor(private postsService: PostsService) { }
+  todos$!: Observable<Todo[]>
+
+  constructor(private postsService: PostsService, private todosService: TodosService) { }
 
   ngOnInit() {
     this.posts$ = this.postsService.getAll()

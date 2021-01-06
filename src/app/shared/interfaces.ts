@@ -20,3 +20,9 @@ export interface Post {
 export interface FbCreateResponse {
     name: string
 }
+
+export interface Todo {
+    completed: boolean
+    title: string
+    id?: string | undefined
+  }

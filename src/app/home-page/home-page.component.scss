@@ -1,4 +1,19 @@
-.posts {
-    max-width: 600px;
-    margin: 0 auto;
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    .posts {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 1rem;
+        width: 50%;
+        align-items: center;
+    }
+
+    .todo {
+        align-items: center;
+        width: 50%;
+    }
+
 }
