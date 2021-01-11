@@ -4,13 +4,14 @@ import { FbAuthResponse, User } from "../../../shared/interfaces";
 import { Observable, Subject, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
 import { catchError, tap } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
     public error$: Subject<string> = new Subject<string>()
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private router: Router) { }
 
     get token(): string | null {
         const expDate = new Date(localStorage.getItem('fb-token-exp') as string)
@@ -61,7 +62,8 @@ export class AuthService {
             localStorage.setItem('fb-token', response.idToken)
             localStorage.setItem('fb-token-exp', expDate.toString())
         } else {
-            localStorage.clear()
+            localStorage.removeItem('fb-token')
+            localStorage.removeItem('fb-token-exp')
         }
     }
 }

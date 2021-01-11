@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate {
         if (this.auth.isAuthenticated()) {
             return true
         } else {
+            window.localStorage.setItem('path', this.router.url)
             this.auth.logout()
             return this.router.navigate(['/admin', 'login'], {
                 queryParams: {

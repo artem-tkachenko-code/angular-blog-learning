@@ -52,7 +52,11 @@ export class LoginPageComponent implements OnInit {
 
     this.auth.login(user).subscribe(() => {
       this.form.reset()
-      this.router.navigate(['/admin', 'dashboard'])
+      if (window.localStorage.getItem('path') == null) {
+        this.router.navigate(['/admin', 'dashboard'])
+      } else {
+        this.router.navigate([window.localStorage.getItem('path')])
+      }
       this.submitted = false
     }, () => {
       this.submitted = false
