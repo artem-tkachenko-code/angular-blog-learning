@@ -1,17 +1,9 @@
-<form class="card" [formGroup]='form' (ngSubmit)='submit()'>
-  <h2>Войти в панель администратора</h2>
-
-  <div class="alert alert-danger" *ngIf="auth.error$ | async as error">
-    {{error}}
-  </div>
-
-  <div class="alert alert-info" *ngIf="message">
-    {{message}}
-  </div>
+<form class="card" [formGroup]='form'>
+  <h2>Регистрация в панель администратора</h2>
 
   <div class="form-control" [ngClass]="{invalid: form.get('email')?.touched && form.get('email')?.invalid}">
     <label for="email">Email:</label>
-    <input type="email" formControlName="email">
+    <input type="email" formControlName="email" #userEmail>
 
     <div class="validation" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
       <small *ngIf="form.get('email')?.errors?.required">Введите поле email</small>
@@ -21,7 +13,7 @@
 
   <div class="form-control" [ngClass]="{invalid: form.get('password')?.touched && form.get('password')?.invalid}">
     <label for="password">Пароль:</label>
-    <input type="password" formControlName="password">
+    <input type="password" formControlName="password" #userPwd>
 
     <div class="validation" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
       <small *ngIf="form.get('password')?.errors?.required">Введите пароль</small>
@@ -30,11 +22,7 @@
     </div>
   </div>
 
-  <div class="btn-wrapper">
-    <div>
-      <button type="submit" class="btn btn-primary" [disabled]='form.invalid || submitted'>Войти</button>
-      <button class="btn btn-danger" [routerLink]="['/admin', 'register']">Регистрация</button>
-    </div>
-    <a [routerLink]="['/admin', 'forgot-password']">Забыли пароль?</a>
-  </div>
+  <input type="button" class="btn btn-primary" value="Зарегестрироваться" [disabled]='form.invalid'
+    (click)="auth.signUp(userEmail.value, userPwd.value)">
+    <a [routerLink]="['/admin', 'login']">Вернуться к авторизации</a>
 </form>

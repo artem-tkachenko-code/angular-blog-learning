@@ -8,8 +8,6 @@
     <button class="btn" (click)="fetchTodos()">Загрузить</button>
   </div>
 
-  <hr>
-
   <p class="error" *ngIf="error; else todosBlock">{{error}}</p>
 
   <ng-template #todosBlock>

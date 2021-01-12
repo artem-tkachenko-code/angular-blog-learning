@@ -53,7 +53,7 @@ export class LoginPageComponent implements OnInit {
     this.auth.login(user).subscribe(() => {
       this.form.reset()
       if (window.localStorage.getItem('path') == null) {
-        this.router.navigate(['/admin', 'dashboard'])
+        this.router.navigate(['/'])
       } else {
         this.router.navigate([window.localStorage.getItem('path')])
       }

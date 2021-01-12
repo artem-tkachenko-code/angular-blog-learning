@@ -3,6 +3,14 @@
     flex-direction: row;
     justify-content: space-around;
 
+    a {
+        color: var(--primary-color);
+
+        &:hover {
+            color: #666;
+        }
+    }
+
     h1 {
         text-align: center;
         width: 50%;

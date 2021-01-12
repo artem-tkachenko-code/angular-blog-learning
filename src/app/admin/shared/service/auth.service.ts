@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { AngularFireAuth } from "@angular/fire/auth";
 import { FbAuthResponse, User } from "../../../shared/interfaces";
 import { Observable, Subject, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
@@ -11,7 +12,7 @@ export class AuthService {
 
     public error$: Subject<string> = new Subject<string>()
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, public afAuth: AngularFireAuth, public router: Router) { }
 
     get token(): string | null {
         const expDate = new Date(localStorage.getItem('fb-token-exp') as string)
@@ -33,6 +34,33 @@ export class AuthService {
 
     logout() {
         this.setToken(null)
+    }
+
+    async signUp(email: string, password: string) {
+        return await this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
+            this.sendEmailVerification();
+        }).catch((error) => {
+            if (error) {
+                this.error$.next(error)
+            }
+        })
+    }
+
+    async sendEmailVerification() {
+        await this.afAuth.currentUser.then(u => u?.sendEmailVerification()).then(() => {
+            this.router.navigate(['/admin', 'verify-email']);
+        })
+    }
+
+    async sendPasswordResetEmail(passwordResetEmail: string) {
+        return await this.afAuth.sendPasswordResetEmail(passwordResetEmail).then(() => {
+            window.alert('Письмо для сброса пароля отправлено')
+        }).catch((error) => {
+            if (error) {
+                this.error$.next(error)
+            }
+        }
+        )
     }
 
     isAuthenticated(): boolean {

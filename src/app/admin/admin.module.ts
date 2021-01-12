@@ -13,11 +13,17 @@ import { AuthGuard } from './shared/service/auth.guard';
 import { SearchPipe } from './shared/search.pipe';
 import { AlertComponent } from './shared/components/alert/alert.component';
 import { AlertService } from './shared/service/alert.service';
+import { ForgotPasswordPageComponent } from './forgot-password-page/forgot-password-page.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
+import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
 
 @NgModule({
   declarations: [
     AdminLayoutComponent,
     LoginPageComponent,
+    ForgotPasswordPageComponent,
+    RegisterPageComponent,
+    VerifyEmailPageComponent,
     DashboardPageComponent,
     CreatePageComponent,
     EditPageComponent,
@@ -34,6 +40,9 @@ import { AlertService } from './shared/service/alert.service';
         path: '', component: AdminLayoutComponent, children: [
           { path: '', redirectTo: '/admin/login', pathMatch: 'full' },
           { path: 'login', component: LoginPageComponent },
+          { path: 'register', component: RegisterPageComponent },
+          { path: 'forgot-password', component: ForgotPasswordPageComponent },
+          { path: 'verify-email', component: VerifyEmailPageComponent },
           { path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard] },
           { path: 'create', component: CreatePageComponent, canActivate: [AuthGuard] },
           { path: 'post/:id/edit', component: EditPageComponent, canActivate: [AuthGuard] }

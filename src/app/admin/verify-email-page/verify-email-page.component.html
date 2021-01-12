@@ -1,0 +1,7 @@
+<div class="card">
+  <h3>На Ваш Email было отправленно сообщение о подтверждении регистрации</h3>
+  <button type="button" class="btn btn-primary btn-success" (click)="auth.sendEmailVerification()">
+    Запросить повторную верификацию
+  </button>
+  <a [routerLink]="['/admin', 'login']">Вернуться к авторизации</a>
+</div>
