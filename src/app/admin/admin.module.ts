@@ -11,8 +11,6 @@ import { EditPageComponent } from './edit-page/edit-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from './shared/service/auth.guard';
 import { SearchPipe } from './shared/search.pipe';
-import { AlertComponent } from './shared/components/alert/alert.component';
-import { AlertService } from './shared/service/alert.service';
 import { ForgotPasswordPageComponent } from './forgot-password-page/forgot-password-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.component';
@@ -27,8 +25,7 @@ import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.
     DashboardPageComponent,
     CreatePageComponent,
     EditPageComponent,
-    SearchPipe,
-    AlertComponent
+    SearchPipe
   ],
   imports: [
     CommonModule,
@@ -51,6 +48,6 @@ import { VerifyEmailPageComponent } from './verify-email-page/verify-email-page.
     ]),
   ],
   exports: [RouterModule],
-  providers: [AuthGuard, AlertService]
+  providers: [AuthGuard]
 })
 export class AdminModule { }

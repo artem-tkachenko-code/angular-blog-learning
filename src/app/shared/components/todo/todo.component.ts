@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from 'src/app/admin/shared/service/alert.service';
 import { Todo } from '../../interfaces';
 import { TodosService } from '../../todos.service';
 
@@ -15,7 +16,7 @@ export class TodoComponent implements OnInit {
 
   error: string = ''
 
-  constructor(private todosService: TodosService) {
+  constructor(private todosService: TodosService, private alert: AlertService) {
 
   }
 
@@ -35,6 +36,7 @@ export class TodoComponent implements OnInit {
     }
     this.todosService.addTodo(todo)
       .subscribe((todoRes: any) => {
+        this.alert.success('Todo создано')
         this.todos.push({ ...todo, id: todoRes.name })
         this.todoTitle = ''
       })
@@ -59,6 +61,7 @@ export class TodoComponent implements OnInit {
   removeTodo(id: any) {
     this.todosService.removeTodo(id)
       .subscribe(() => {
+        this.alert.danger('Todo удалён')
         this.todos = this.todos.filter(t => t.id !== id)
       })
   }
@@ -68,6 +71,7 @@ export class TodoComponent implements OnInit {
       return t.id === id
     })
     this.todosService.completeTodo(completed).subscribe((todo: Todo) => {
+      this.alert.success('Todo завершён')
       if (completed) completed.completed = true
     })
   }

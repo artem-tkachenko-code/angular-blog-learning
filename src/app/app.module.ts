@@ -45,7 +45,7 @@ var FirebaseConfig = {
     HomePageComponent,
     PostPageComponent,
     PostComponent,
-    TodoComponent
+    TodoComponent,
   ],
   imports: [
     BrowserModule,

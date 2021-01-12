@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <input type="button" class="btn btn-primary" value="Зарегестрироваться" [disabled]='form.invalid'
+  <input type="button" class="btn btn-primary" value="Зарегистрироваться" [disabled]='form.invalid'
     (click)="auth.signUp(userEmail.value, userPwd.value)">
     <a [routerLink]="['/admin', 'login']">Вернуться к авторизации</a>
 </form>
