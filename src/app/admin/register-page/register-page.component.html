@@ -1,6 +1,10 @@
 <form class="card" [formGroup]='form'>
   <h2>Регистрация в панель администратора</h2>
 
+  <div class="alert alert-danger" *ngIf="auth.error$ | async as error">
+    {{error}}
+  </div>
+
   <div class="form-control" [ngClass]="{invalid: form.get('email')?.touched && form.get('email')?.invalid}">
     <label for="email">Email:</label>
     <input type="email" formControlName="email" #userEmail>
@@ -22,7 +26,7 @@
     </div>
   </div>
 
-  <input type="button" class="btn btn-primary" value="Зарегистрироваться" [disabled]='form.invalid'
-    (click)="auth.signUp(userEmail.value, userPwd.value)">
-    <a [routerLink]="['/admin', 'login']">Вернуться к авторизации</a>
+  <button type="submit" class="btn btn-primary" [disabled]='form.invalid'
+    (click)="auth.signUp(userEmail.value, userPwd.value)">Зарегистрироваться</button>
+  <a [routerLink]="['/admin', 'login']">Вернуться к авторизации</a>
 </form>

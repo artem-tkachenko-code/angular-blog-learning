@@ -31,7 +31,7 @@ export class TodosService {
           } else return
         }),
         catchError(error => {
-          console.log(error.message)
+          // console.log(error.message)
           return throwError(error)
         })
       )
@@ -40,16 +40,17 @@ export class TodosService {
   removeTodo(id: Todo | undefined): Observable<any> {
     return this.http.delete<void>(`${environment.fbDbUrl}/todos/${id}.json`, {
       observe: 'events'
-    }).pipe(
-      tap(event => {
-        if (event.type === HttpEventType.Sent) {
-          console.log('Sent', event);
-        }
-        if (event.type === HttpEventType.Response) {
-          console.log('Response', event);
-        }
-      })
-    )
+    })
+    // .pipe(
+    //   tap(event => {
+    //     if (event.type === HttpEventType.Sent) {
+    //       console.log('Sent', event);
+    //     }
+    //     if (event.type === HttpEventType.Response) {
+    //       console.log('Response', event);
+    //     }
+    //   })
+    // )
   }
 
   completeTodo(todo: Todo | undefined): Observable<Todo> {

@@ -1,14 +1,15 @@
 <app-alert></app-alert>
 
 <nav class="navbar main">
-  <a [routerLink]="['/admin', 'login']">
-    Login
+  <a [routerLink]=" ['/admin', 'dashboard' ]">
+    Admin
   </a>
   <h1>Blog</h1>
   <h1>Todos</h1>
-  <a [routerLink]="['/admin', 'dashboard']">
-    Admin
+  <a [routerLink]="['/admin', 'login']" *ngIf="isLogin; else logOut">
+    Login
   </a>
+  <ng-template #logOut><a href="#" (click)="isLogout()">Logout</a></ng-template>
 </nav>
 
 <div class="container">

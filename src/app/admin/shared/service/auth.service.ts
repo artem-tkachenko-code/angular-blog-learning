@@ -37,19 +37,26 @@ export class AuthService {
     }
 
     async signUp(email: string, password: string) {
-        return await this.afAuth.createUserWithEmailAndPassword(email, password).then(() => {
-            this.sendEmailVerification();
-        }).catch((error) => {
-            if (error) {
-                this.error$.next(error)
-            }
-        })
+        return await this.afAuth.createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                this.sendEmailVerification();
+            }).catch(
+                (error: any) => {
+                    if (error) {
+                        this.error$.next(error)
+                        setTimeout(() => {
+                            console.clear()
+                        }, 1)
+                    }
+                }
+            )
     }
 
     async sendEmailVerification() {
-        await this.afAuth.currentUser.then(u => u?.sendEmailVerification()).then(() => {
-            this.router.navigate(['/admin', 'verify-email']);
-        })
+        await this.afAuth.currentUser.then(u => u?.sendEmailVerification())
+            .then(() => {
+                this.router.navigate(['/admin', 'verify-email']);
+            })
     }
 
     async sendPasswordResetEmail(passwordResetEmail: string) {
@@ -58,6 +65,9 @@ export class AuthService {
         }).catch((error) => {
             if (error) {
                 this.error$.next(error)
+                setTimeout(() => {
+                    console.clear()
+                }, 1)
             }
         }
         )
@@ -79,6 +89,9 @@ export class AuthService {
                 break
             case 'INVALID_PASSWORD':
                 this.error$.next('Неверный пароль')
+                break
+            case 'EMAIL_EXISTS':
+                this.error$.next('Такой email уже зарегистрирован')
                 break
         }
         return throwError(error)

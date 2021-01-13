@@ -37,7 +37,7 @@ export class TodoComponent implements OnInit {
     this.todosService.addTodo(todo)
       .subscribe((todoRes: any) => {
         this.alert.success('Todo создано')
-        this.todos.push({ ...todo, id: todoRes.name })
+        this.todos.unshift({ ...todo, id: todoRes.name })
         this.todoTitle = ''
       })
   }
