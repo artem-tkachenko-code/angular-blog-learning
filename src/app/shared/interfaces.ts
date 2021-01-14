@@ -25,4 +25,5 @@ export interface Todo {
     completed: boolean
     title: string
     id?: string | undefined
+    uid?: string | undefined | null
   }

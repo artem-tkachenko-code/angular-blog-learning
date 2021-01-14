@@ -16,13 +16,19 @@ export class TodoComponent implements OnInit {
 
   error: string = ''
 
+
   constructor(private todosService: TodosService, private alert: AlertService) {
 
   }
 
   todos: Todo[] = [];
 
+  userTodos: Todo[] | undefined = []
+
   ngOnInit() {
+    this.todosService.refreshTodo$.subscribe(() => {
+      this.fetchTodos()
+    })
     this.fetchTodos()
   }
 
@@ -33,6 +39,7 @@ export class TodoComponent implements OnInit {
     const todo = {
       title: this.todoTitle,
       completed: false,
+      uid: window.localStorage.getItem('uid')
     }
     this.todosService.addTodo(todo)
       .subscribe((todoRes: any) => {
@@ -47,7 +54,7 @@ export class TodoComponent implements OnInit {
     this.todosService.fetchTodos()
       .subscribe((todos: Todo[] | undefined) => {
         if (todos) {
-          this.todos = todos!
+          this.todos = todos.filter(t => t.uid === window.localStorage.getItem('uid'))
           this.loading = false
         } else {
           this.loading = false
@@ -75,5 +82,6 @@ export class TodoComponent implements OnInit {
       if (completed) completed.completed = true
     })
   }
+
 }
 

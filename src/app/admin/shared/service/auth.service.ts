@@ -33,6 +33,7 @@ export class AuthService {
     }
 
     logout() {
+        window.localStorage.removeItem('uid')
         this.setToken(null)
     }
 

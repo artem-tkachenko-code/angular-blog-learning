@@ -1,7 +1,7 @@
-import { HttpClient, HttpEventType, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map, delay, tap } from 'rxjs/operators';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Todo } from './interfaces';
 
@@ -10,6 +10,8 @@ import { Todo } from './interfaces';
   providedIn: 'root'
 })
 export class TodosService {
+
+  refreshTodo$: Subject<any> = new Subject<any>()
 
   constructor(private http: HttpClient) { }
 
@@ -57,7 +59,8 @@ export class TodosService {
     return this.http.put<Todo>(`${environment.fbDbUrl}/todos/${todo?.id}.json`, {
       title: todo?.title,
       completed: true,
-      id: todo?.id
+      id: todo?.id,
+      uid: todo?.uid
     }, {
       responseType: 'json'
     })

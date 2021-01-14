@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/admin/shared/service/auth.service';
+import { TodosService } from '../../todos.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -11,7 +12,7 @@ export class MainLayoutComponent implements OnInit {
 
   isLogin: boolean = false
 
-  constructor(public auth: AuthService, private router: Router) { }
+  constructor(public auth: AuthService, private router: Router, private todoService: TodosService) { }
 
   ngOnInit() {
     this.isAuth()
@@ -19,6 +20,7 @@ export class MainLayoutComponent implements OnInit {
 
   isLogout() {
     this.auth.logout()
+    this.todoService.refreshTodo$.next('t')
     window.localStorage.setItem('path', this.router.url)
     this.isLogin = false
     this.isAuth()
@@ -29,5 +31,4 @@ export class MainLayoutComponent implements OnInit {
       this.isLogin = true
     } else this.isLogin = false
   }
-
 }
